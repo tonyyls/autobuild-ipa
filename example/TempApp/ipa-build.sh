@@ -19,7 +19,6 @@ ProjectName="TempApp"
 ##描述文件路径
 ProvisionFile="${ProjectPath}/Ability.mobileprovision"
 
-
 WorkspacePath="${ProjectPath}/${ProjectName}.xcworkspace"
 ArchivePath="${ProjectPath}/build/${ProjectName}.xcarchive"
 Scheme="${ProjectName}"
