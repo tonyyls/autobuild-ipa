@@ -2,7 +2,7 @@
 
 `ipa-build.sh` 能够帮助iOSer快速打包 ipa(Distribution)
 
-运行环境: Mac OX 10.12.x , XCode 9
+运行环境: Mac OX 10.12.x , XCode 9 , CocoaPods(支持pod命令)
 
 XCode 9 以下的环境均不适用当前脚本，升级XCode9大势所趋！
 

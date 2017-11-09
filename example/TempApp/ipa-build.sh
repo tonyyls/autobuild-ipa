@@ -4,20 +4,25 @@
 # IPA auto-build script
 # 
 ##############################
+cd "$(dirname "$0")";
+##授权Pods目录
+chmod -R 777 $(pwd)/Pods
+##执行pod install安装
+pod install
 
 ##输入
-BundleId="com.gz.ability"
-AppName="Ability"
-ShortVersion="1.0"
-BuildVersion="20171106"
+BundleId="com.gz.ability" #你的Bundle ID
+AppName="Ability" #你的AppName,显示在桌面
+ShortVersion="1.0" #short版本
+BuildVersion="20171106" #build版本
 
-cd "$(dirname "$0")";
 ##当前脚本运行目录
-ProjectPath=$(pwd) 
+ProjectPath=$(pwd)
 ##当前project或者workspace的文件名
-ProjectName="TempApp"
+ProjectName="TempApp" #当前工程的名称，以最后生成的 TempApp.xcworkspace 为准
 ##描述文件路径
-ProvisionFile="${ProjectPath}/Ability.mobileprovision"
+ProvisionFile="${ProjectPath}/Ability.mobileprovision" #描述文件
+
 
 WorkspacePath="${ProjectPath}/${ProjectName}.xcworkspace"
 ArchivePath="${ProjectPath}/build/${ProjectName}.xcarchive"
@@ -38,13 +43,10 @@ echo "UUID:"${Provision_UUID}
 Provision_TeamIdentifier=`defaults read "${ProvisionPlistFile}" TeamIdentifier`
 echo "TeamIdentifier:"${Provision_TeamIdentifier}
 
-###放到临时文件再取出来，这里有点曲折，原因是读出来的无法去掉 "长空格"
-Provision_TeamIdentifier=${Provision_TeamIdentifier/(/} #去掉左(
-Provision_TeamIdentifier=${Provision_TeamIdentifier/)/} #去掉右)
-
 touch temp.txt
 echo ${Provision_TeamIdentifier} > temp.txt
-Provision_TeamIdentifier=`cat temp.txt | awk '{print $0}'`
+##去掉空格和括号
+Provision_TeamIdentifier=`cat temp.txt | sed 's/[[:space:]]//g' | sed 's/[()]//g'`
 echo ${Provision_TeamIdentifier}
 rm temp.txt
 
